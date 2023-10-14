@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "Please enter the FULL path of the file to sync:"
-read FILE_TO_SYNC
+FILE_TO_SYNC=$1
 
 SCRIPT_PATH="$(readlink -f "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"

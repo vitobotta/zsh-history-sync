@@ -37,7 +37,6 @@ if (( current_time - last_executed_time >= 30 )) || [ "$force_sync" = "-f" ]; th
   fc -R
 
   echo $current_time > ~/.last_executed_time
-  echo $(date) >> ~/synchistory.log
 fi
 
 

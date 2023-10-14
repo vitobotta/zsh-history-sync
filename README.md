@@ -9,7 +9,7 @@ Notes:
 
 ## Installation
 
-You need to clone the repo with the scripts somewhere and run the install script:
+You need to clone the repo with the scripts somewhere and run the install script. The install script accepts a single argument for the path of the file to keep in sync in your Dropbox or equivalent synced directory.
 
 ```bash
 git clone https://github.com/vitobotta/zsh-history-sync.git

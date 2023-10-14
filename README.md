@@ -21,6 +21,19 @@ cd zsh-history-sync
 source ~/.zshrc
 ```
 
+Since sync is triggered only if the previous command ran at least 30 seconds ago, some commands might be left unsynced when you switch to the other computer. To fix this you can also schedule a sync every minute with an offset on the second computer, so to minimise the risk of sync conflicts. Using crontab, on the first computer:
+
+```
+* * * * * /path/of/zsh-history-sync/sync-history.sh /path/of/synced/file
+```
+
+On the second computer:
+
+```
+* * * * * sleep 30; /path/of/zsh-history-sync/sync-history.sh /path/of/synced/file
+```
+
+
 
 
 

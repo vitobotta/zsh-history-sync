@@ -4,6 +4,7 @@ Syncs your zsh shell history between computers, easily. Only requirements is to 
 
 Notes:
 - To eliminate or at least minimise the frequency of conflicts, the history is synced every 30 seconds.
+- You can trigger a sync at any time with the command `synchistory -f`
 - [fzf](https://github.com/junegunn/fzf) is required to show a nice fuzzy-search window to search the history for a previous command
 - Ctrl-r and the arrow key are bound to the fuzzy search, to make it easier and quicker to find a previous command you want to run again.
 

@@ -1,0 +1,1 @@
+# zsh-history-sync

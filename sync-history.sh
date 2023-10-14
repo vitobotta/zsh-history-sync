@@ -24,9 +24,9 @@ write_file() {
 }
 
 current_time=$(date +%s)
-last_executed_time=$(cat ~/.last_executed_time 2>/dev/null || echo 0)
+last_executed_time=$(cat ~/.zsh-last-sync 2>/dev/null || echo 0)
 
-if (( current_time - last_executed_time >= 30 )) || [ "$force_sync" = "-f" ]; then
+if (( current_time - zsh-last-sync >= 30 )) || [ "$force_sync" = "-f" ]; then
   source_items=$(read_file $source_file)
   new_items=$(read_file $sync_file)
   items=$(echo -e "$source_items\n$new_items" | sort | uniq)
@@ -36,7 +36,7 @@ if (( current_time - last_executed_time >= 30 )) || [ "$force_sync" = "-f" ]; th
 
   fc -R
 
-  echo $current_time > ~/.last_executed_time
+  echo $current_time > ~/.zsh-last-sync
 fi
 
 

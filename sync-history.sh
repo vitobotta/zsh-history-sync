@@ -3,7 +3,6 @@
 home=$HOME
 source_file="${home}/.zsh_history"
 sync_file=$1
-last_command_timestamp_file=$1.last-sync
 force_sync=$2
 
 read_file() {
@@ -25,7 +24,7 @@ write_file() {
 }
 
 current_time=$(date +%s)
-last_executed_time=$(cat $last_command_timestamp_file 2>/dev/null || echo 0)
+last_executed_time=$(cat ~/.zsh-last-sync 2>/dev/null || echo 0)
 
 if (( current_time - zsh-last-sync >= 30 )) || [ "$force_sync" = "-f" ]; then
   source_items=$(read_file $source_file)
@@ -37,7 +36,7 @@ if (( current_time - zsh-last-sync >= 30 )) || [ "$force_sync" = "-f" ]; then
 
   fc -R
 
-  echo $current_time > $last_command_timestamp_file
+  echo $current_time > ~/.zsh-last-sync
 fi
 
 

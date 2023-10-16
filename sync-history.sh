@@ -29,6 +29,7 @@ last_executed_time=$(cat $last_command_timestamp_file 2>/dev/null || echo 0)
 if (( current_time - last_executed_time >= 15 )) || [ "$force_sync" = "-f" ]; then
   {
     git -C $repo_dir pull > /dev/null 2>&1
+    git -C $repo_dir checkout --theirs $sync_file > /dev/null 2>&1
 
     if [[ -f $sync_file ]]; then
       temp_sync_file=$(mktemp)
@@ -40,7 +41,7 @@ if (( current_time - last_executed_time >= 15 )) || [ "$force_sync" = "-f" ]; th
     fi
 
     source_items=$(read_file $source_file)
-    items=$(echo -e "$source_items\n$new_items" | sort | uniq)
+    items=$(echo -e "$source_items\n$new_items" | grep -v '^\:\s[<=>]\{3\}' | sort | uniq)
 
     echo -e "$items" > $source_file
     echo -e "$items" | openssl enc -aes-256-cbc -md sha256 -out "$sync_file" -pass file:"$encryption_key_file" -pbkdf2

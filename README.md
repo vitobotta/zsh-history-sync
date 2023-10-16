@@ -10,18 +10,18 @@ Notes:
 
 ## Installation
 
-You need to clone the repo with the scripts somewhere and run the install script. The install script accepts a single argument for the path of the file to keep in sync in your private git repo that will contain the synchronised history.
+You need to clone this repo with the scripts somewhere and run the install script. The install script accepts a single argument for the path of the file to keep in sync in your private git repo, that will contain the synchronised history. The install script updates your .zshrc to load the sync functions.
 
 ```bash
 git clone https://github.com/vitobotta/zsh-history-sync.git
 cd zsh-history-sync
 
-./install.sh <path of synced file in your repo>
+./install.sh <path of synced file in your private repo>
 
 source ~/.zshrc
 ```
 
-I recommend you also schedule a sync every minute with an offset on the second computer, so to minimise the risk of sync conflicts. Using crontab, on the first computer:
+I recommend you also schedule a sync every minute (just to ensure every command is synced since the automatic sync depends on when the ladt command was executed). It's better to specify an offset on the second computer, so to minimise the risk of sync conflicts. Using crontab, on the first computer:
 
 ```
 * * * * * /path/of/zsh-history-sync/sync-history.sh /path/of/synced/file

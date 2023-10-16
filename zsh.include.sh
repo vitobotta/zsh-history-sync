@@ -10,7 +10,7 @@ __reload_history() {
 }
 
 __sync_history() {
-  $ZSH_HISTORY_SYNC_SCRIPT_PATH $ZSH_HISTORY_SYNC_FILE_PATH
+  $ZSH_HISTORY_SYNC_SCRIPT_PATH $ZSH_HISTORY_SYNC_GIT_REPO_PATH
 }
 
 add-zsh-hook preexec __reload_history
@@ -21,4 +21,4 @@ bindkey '^r' fzf-history-widget
 bindkey '^[[A' fzf-history-widget
 bindkey '^[OA' fzf-history-widget
 
-alias synchistory="$ZSH_HISTORY_SYNC_SCRIPT_PATH $ZSH_HISTORY_SYNC_FILE_PATH"
+alias synchistory="$ZSH_HISTORY_SYNC_SCRIPT_PATH $ZSH_HISTORY_SYNC_GIT_REPO_PATH"

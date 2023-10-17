@@ -10,7 +10,7 @@ Notes:
 
 ## Installation
 
-You need to clone this repo with the scripts somewhere and run the install script. The installer will ask you for the path of your git repository that you want to use to synchronise the history, as well as a password to encrypt it (the password will be stored in ~/.zsh-history-sync.encryption-key). The install script then updates your .zshrc to load what's required to trigger the synchronisation in background.
+You need to clone this repo with the scripts somewhere and run the install script. The installer will ask you for the path to your git repository that you want to use to synchronise the history, as well as a password to encrypt it (the password will be stored in ~/.zsh-history-sync.encryption-key). The install script then updates your .zshrc to load what's required to trigger the synchronisation in background.
 
 ```bash
 git clone https://github.com/vitobotta/zsh-history-sync.git
@@ -24,13 +24,13 @@ source ~/.zshrc
 I recommend you also schedule a sync every minute (just to ensure every command is synced since the automatic sync depends on when the last command was executed). It's better to specify an offset on the second computer, so to minimise the risk of sync conflicts. Using crontab, on the first computer:
 
 ```
-* * * * * /path/of/zsh-history-sync/sync-history.sh /path/of/your/repo
+* * * * * /path/to/zsh-history-sync/sync-history.sh /path/to/your/repo
 ```
 
 On the second computer:
 
 ```
-* * * * * sleep 30; /path/of/zsh-history-sync/sync-history.sh /path/of/your/repo
+* * * * * sleep 30; /path/to/zsh-history-sync/sync-history.sh /path/to/your/repo
 ```
 
 

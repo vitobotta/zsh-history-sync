@@ -2,6 +2,8 @@
 
 Syncs your zsh shell history between computers using git and in encrypted format (using openssl), easily. Only requirement is to have a git repository on Github or similar (recommended private although the history is encrypted).
 
+If you like this or any of my other projects and would like to help with their development, consider [becoming a sponsor](https://github.com/sponsors/vitobotta).
+
 Notes:
 - To eliminate or at least minimise the frequency of conflicts, the history is synced only when the last command was executed at least 15 seconds ago. This way even if you switch from a computer to another quickly, the chance of a sync conflict is greatly reduced compared to a sync at each command.
 - You can trigger a sync at any time with the command `synchistory -f`

@@ -1,5 +1,18 @@
 #!/usr/bin/env zsh
 
+lockfile=/tmp/mylockfile
+
+if [ -e ${lockfile} ] && kill -0 `cat ${lockfile}`; then
+  echo "already running"
+  exit
+fi
+
+# make sure the lockfile is removed when we exit and when we receive a signal
+trap "rm -f ${lockfile}; exit" INT TERM EXIT
+echo $$ > ${lockfile}
+
+set -e
+
 home="$HOME"
 repo_dir="$1"
 force_sync="$2"
@@ -26,10 +39,10 @@ read_file() {
 current_time=$(date +%s)
 last_executed_time=$(cat $last_command_timestamp_file 2>/dev/null || echo 0)
 
-if (( current_time - last_executed_time >= 15 )) || [ "$force_sync" = "-f" ]; then
+if (( current_time - last_executed_time >= 30 )) || [ "$force_sync" = "-f" ]; then
   {
-    git -C $repo_dir pull > /dev/null 2>&1
-    git -C $repo_dir checkout --theirs $sync_file > /dev/null 2>&1
+    git -C $repo_dir fetch > /dev/null 2>&1
+    git -C $repo_dir merge -X theirs -m "Merging fetched changes" > /dev/null 2>&1
 
     if [[ -f $sync_file ]]; then
       temp_sync_file=$(mktemp)
@@ -48,10 +61,13 @@ if (( current_time - last_executed_time >= 15 )) || [ "$force_sync" = "-f" ]; th
 
     fc -R $source_file
 
-    echo $current_time > $last_command_timestamp_file
-
-    git -C $repo_dir add $sync_file
+    git -C $repo_dir add $sync_file > /dev/null 2>&1
     git -C $repo_dir commit -m "Sync history from $identifier" > /dev/null 2>&1
     git -C $repo_dir push > /dev/null 2>&1
+
+    current_time=$(date +%s)
+    echo $current_time > $last_command_timestamp_file
   } &
 fi
+
+rm -f ${lockfile}

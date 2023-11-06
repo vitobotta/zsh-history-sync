@@ -41,6 +41,7 @@ last_executed_time=$(cat $last_command_timestamp_file 2>/dev/null || echo 0)
 
 if (( current_time - last_executed_time >= 30 )) || [ "$force_sync" = "-f" ]; then
   {
+    git -C $repo_dir reset --hard > /dev/null 2>&1
     git -C $repo_dir fetch > /dev/null 2>&1
     git -C $repo_dir merge -X theirs -m "Merging fetched changes" > /dev/null 2>&1
 

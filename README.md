@@ -1,6 +1,6 @@
 # zsh-history-sync
 
-Syncs your zsh shell history between computers using git and in encrypted format (using openssl), easily. Only requirement is to have a git repository on Github or similar (recommended private although the history is encrypted).
+Syncs your zsh shell history between computers using git and in encrypted format (using GPG), easily. Only requirement is to have a git repository on Github or similar (recommended private although the history is encrypted).
 
 If you like this or any of my other projects and would like to help with their development, consider [becoming a sponsor](https://github.com/sponsors/vitobotta).
 
@@ -12,7 +12,7 @@ Notes:
 
 ## Installation
 
-You need to clone this repo with the scripts somewhere and run the install script. The installer will ask you for the path to your git repository that you want to use to synchronise the history, as well as a password to encrypt it (the password will be stored in ~/.zsh-history-sync.encryption-key). The install script then updates your .zshrc to load what's required to trigger the synchronisation in background.
+You need to clone this repo with the scripts somewhere and run the install script. The installer will ask you for the path to your git repository that you want to use to synchronise the history, as well the UID of the GPG key you want to use to encrypt the history. The install script then updates your .zshrc to load what's required to trigger the synchronisation in background.
 
 ```bash
 git clone https://github.com/vitobotta/zsh-history-sync.git
@@ -22,20 +22,3 @@ cd zsh-history-sync
 
 source ~/.zshrc
 ```
-
-I recommend you also schedule a sync every minute (just to ensure every command is synced since the automatic sync depends on when the last command was executed). It's better to specify an offset on the second computer, so to minimise the risk of sync conflicts. Using crontab, on the first computer:
-
-```
-* * * * * /path/to/zsh-history-sync/sync-history.sh /path/to/your/repo
-```
-
-On the second computer:
-
-```
-* * * * * sleep 30; /path/to/zsh-history-sync/sync-history.sh /path/to/your/repo
-```
-
-
-
-
-

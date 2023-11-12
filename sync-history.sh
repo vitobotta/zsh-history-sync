@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-lockfile=/tmp/mylockfile
+lockfile=/tmp/zsh-sync-history.lock
 
 if [ -e ${lockfile} ] && kill -0 `cat ${lockfile}`; then
   echo "already running"

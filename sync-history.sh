@@ -58,17 +58,17 @@ if (( current_time - last_executed_time >= 30 )) || [ "$force_sync" = "-f" ]; th
     git -C $repo_dir fetch > /dev/null 2>&1
     git -C $repo_dir merge -X theirs -m "Merging fetched changes" > /dev/null 2>&1
 
+    new_items=""
+
     if [[ -f $sync_file ]]; then
       temp_sync_file=$(mktemp)
       $GPG_CMD --decrypt "$sync_file" > "$temp_sync_file" 2>/dev/null
       new_items=$(read_file "$temp_sync_file")
       rm "$temp_sync_file"
-    else
-      new_items=""
     fi
 
     source_items=$(read_file $source_file)
-    items=$(echo -e "$source_items\n$new_items" | grep -v '^\:\s[<=>]\{3\}' | awk '!x[$0]++')
+    items=$(echo -e "$new_items\n$source_items" | grep -v '^\:\s[<=>]\{3\}' | awk '!x[$0]++')
 
     echo -e "$items" > $source_file
     echo -e "$items" | $GPG_CMD --encrypt --trust-model always --yes  --recipient "$ZSH_HISTORY_SYNC_GPG_KEY_UID" --output "$sync_file" 2>/dev/null
